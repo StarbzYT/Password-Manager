@@ -2,6 +2,7 @@ import sqlite3
 
 
 class Database:
+    # intialize db
     def __init__(self, db):
         self.connection = sqlite3.connect(db)
         self.cursor = self.connection.cursor()
@@ -39,6 +40,9 @@ class Database:
             "UPDATE passwords SET website=?, password_=? WHERE id=?",
             (new_website, new_password, id))
         self.connection.commit()  # ALWAYS COMMIT CHANGES
+
+    def __del__(self):
+        self.connection.close()
 
 
 db = Database("passwords")
