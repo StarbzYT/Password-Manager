@@ -24,21 +24,23 @@ class Application:
                               text="Website", font=("calibre", 12, "bold"))
         website_label.grid(column=0, row=0, pady=20)
         # input box for website
-        website = Entry(Application.window, font=("calibre", 12, "normal"))
+        website = Entry(Application.window, font=(
+            "calibre", 12, "normal"), borderwidth=2)
         website.grid(column=1, row=0, pady=20)
         password_label = Label(
             Application.window, text="Password", font=("calibre", 12, "bold"))
-        password_label.grid(column=2, row=0, pady=20)
+        password_label.grid(column=2, row=0, pady=28)
         # input box for password
-        password = Entry(Application.window, font=("calibre", 12, "normal"))
-        password.grid(column=3, row=0, pady=20)
+        password = Entry(Application.window, font=(
+            "calibre", 12, "normal"), borderwidth=2)
+        password.grid(column=3, row=0)
 
     # create buttons
     def buttons(self):
         # buttons
         add_password = Button(Application.window,
                               text="Add Password", bg="green", bd="3", width=14)
-        add_password.grid(column=0, row=1, pady=20, padx=15)
+        add_password.grid(column=0, row=1, pady=20, padx=25)
         delete_password = Button(Application.window,
                                  text="Delete Password", bg="red", bd="3", width=14)
         delete_password.grid(column=1, row=1, pady=20, padx=15)
@@ -51,9 +53,9 @@ class Application:
 
     # list box to store website and passwords
     def list_box(self):
-        data = Listbox(Application.window, height=20, width=80, border=0)
+        data = Listbox(Application.window, height=20, width=83, border=2)
         data.grid(column=0, row=3, columnspan=4,
-                  rowspan=3, pady=20, padx=15)
+                  rowspan=3, pady=25, padx=20)
         # scrollbar/slider
         # Create scrollbar
         scrollbar = Scrollbar(Application.window)
@@ -61,6 +63,8 @@ class Application:
         # Set scrollbar to parts
         data.configure(yscrollcommand=scrollbar.set)
         scrollbar.configure(command=data.yview)
+        # # Bind select
+        # data.bind("<<ListboxSelect>>")
 
 
 app = Application()
