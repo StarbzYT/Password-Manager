@@ -23,7 +23,7 @@ class Database:
     def get_data(self):
         self.cursor.execute("SELECT * FROM passwords")
         rows = self.cursor.fetchall()  # get all data from passwords table
-        return rows  # return website, password_
+        return rows  # return id, website, password_
 
     # remove specific data i.e website AND password in database (grab using id)
 
@@ -46,4 +46,4 @@ class Database:
 
 
 db = Database("passwords")
-print(db.get_data())
+db.delete_data(3)
