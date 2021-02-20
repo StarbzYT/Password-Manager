@@ -40,20 +40,20 @@ class Application:
         # buttons
         add_password = Button(Application.window,
                               text="Add Password", bg="green", bd="3", width=14)
-        add_password.grid(column=0, row=1, pady=20, padx=25)
+        add_password.grid(column=0, row=1, pady=20, padx=22)
         delete_password = Button(Application.window,
                                  text="Delete Password", bg="red", bd="3", width=14)
-        delete_password.grid(column=1, row=1, pady=20, padx=15)
+        delete_password.grid(column=1, row=1, pady=20, padx=12)
         update_password = Button(
             Application.window, text="Update Password", bd="3", width=14)
-        update_password.grid(column=2, row=1, pady=20, padx=15)
+        update_password.grid(column=2, row=1, pady=20, padx=12)
         clear_input = Button(
             Application.window, text="Clear Input", bd="3", width=14)
         clear_input.grid(column=3, row=1, pady=20, padx=15)
 
     # list box to store website and passwords
     def list_box(self):
-        data = Listbox(Application.window, height=20, width=83, border=2)
+        data = Listbox(Application.window, height=20, width=81, border=2)
         data.grid(column=0, row=3, columnspan=4,
                   rowspan=3, pady=25, padx=20)
         # scrollbar/slider
