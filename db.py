@@ -46,4 +46,4 @@ class Database:
 
 
 db = Database("passwords")
-db.delete_data(3)
+print(db.get_data())
