@@ -14,10 +14,13 @@ class Application:
         icon = PhotoImage(file='lock-icon.png')
         # Setting icon png type file
         Application.window.iconphoto(False, icon)
+        # initial selected item
+        self.selected_item = 0  # nothing initially selectedS
         # run to get all widgets i.e buttons, labels, etc
         self.labels()
         self.buttons()
         self.list_box()
+        self.populate_list()  # will immediately show data when run
 
     # create labels and input boxes
     def labels(self):
@@ -47,7 +50,7 @@ class Application:
                                       text="Delete Password", bg="red", bd="3", width=14)
         self.delete_password.grid(column=1, row=1, pady=20, padx=12)
         self.update_password = Button(
-            Application.window, text="Update Password", bd="3", width=14)
+            Application.window, text="Update", bd="3", width=14, command=self.update)
         self.update_password.grid(column=2, row=1, pady=20, padx=12)
         self.clear_input = Button(
             Application.window, text="Clear Input", bd="3", width=14, command=self.clear)
@@ -55,7 +58,8 @@ class Application:
 
     # list box to store website and passwords
     def list_box(self):
-        self.data = Listbox(Application.window, height=20, width=81, border=2)
+        self.data = Listbox(Application.window, height=20,
+                            width=69, border=2, font=("calibre", 10))
         self.data.grid(column=0, row=3, columnspan=4,
                        rowspan=3, pady=25, padx=20)
         # scrollbar/slider
@@ -66,7 +70,7 @@ class Application:
         self.data.configure(yscrollcommand=self.scrollbar.set)
         self.scrollbar.configure(command=self.data.yview)
         # # Bind select
-        # data.bind("<<ListboxSelect>>")
+        self.data.bind('<<ListboxSelect>>', self.select_item)
 
     # button commands
     # add website and password to database
@@ -79,8 +83,7 @@ class Application:
         # otherwise insert into database
         database.insert_data(self.website.get(), self.password.get())
         # insert then clear input boxes
-        self.website.delete(0, END)
-        self.password.delete(0, END)
+        self.clear()
         self.populate_list()
 
     def populate_list(self):
@@ -88,13 +91,48 @@ class Application:
         self.data.delete(0, END)
         for data in database.get_data():  # loop through ALL websites and passwords
             show_this = f"Website: {data[1]}, Password: {data[2]}"
-            self.data.insert(0, show_this)  # insert into listbox
+            self.data.insert(END, show_this)  # insert into listbox
 
-    # clear input button functionality
+        # Runs when item is selected
+    def select_item(self, event):
+        # # Create global selected item to use in other functions
+        try:
+            # Get index
+            # only one item in tuple so get it out
+            index = self.data.curselection()[0]
+            # Get selected item
+            self.selected_item = self.data.get(index)
+            self.entries = self.selected_item.split()
+            # Add text to entries when selected then delete when another item is selected
+            self.website.delete(0, END)
+            # slice to take out comma
+            self.website.insert(END, self.entries[1][0:-1])
+            self.password.delete(0, END)
+            self.password.insert(END, self.entries[3])
+
+        except IndexError:  # if user clicks unreachable index (not item)
+            pass
+
+    # update selected passwords
+    def update(self):
+        database.update_data(self.selected_item,
+                             self.website.get(), self.password.get())
+        self.clear()
+        self.populate_list()  # show new data
+
+    # delete data
+    def delete(self):
+        database.delete_data(self.selected_item)
+        self.clear()
+        self.populate_list()  # show new data
+
+        # clear input button functionality
+
     def clear(self):
         self.website.delete(0, END)
         self.password.delete(0, END)
 
 
 app = Application()
+app.update()
 Application.window.mainloop()

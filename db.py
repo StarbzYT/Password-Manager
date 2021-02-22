@@ -39,7 +39,7 @@ class Database:
         self.cursor.execute(
             "UPDATE passwords SET website=?, password_=? WHERE id=?",
             (new_website, new_password, id))
-        self.connection.commit()  # ALWAYS COMMIT CHANGES
+        self.connection.commit()  # ALWAYS COMMIT CHANGES when making changes to db
 
     def __del__(self):
         self.connection.close()
