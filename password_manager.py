@@ -90,8 +90,8 @@ class Application:
         # first delete to prevent same data showing in listbox
         self.data.delete(0, END)
         for data in database.get_data():  # loop through ALL websites and passwords
-            show_this = f"Website: {data[1]}, Password: {data[2]}"
-            self.data.insert(END, show_this)  # insert into listbox
+            # show_this = f"Website: {data[1]}, Password: {data[2]}"
+            self.data.insert(END, data)  # insert into listbox
 
         # Runs when item is selected
     def select_item(self, event):
@@ -102,27 +102,27 @@ class Application:
             index = self.data.curselection()[0]
             # Get selected item
             self.selected_item = self.data.get(index)
-            self.entries = self.selected_item.split()
+            self.entries = self.selected_item
             # Add text to entries when selected then delete when another item is selected
             self.website.delete(0, END)
             # slice to take out comma
-            self.website.insert(END, self.entries[1][0:-1])
+            self.website.insert(END, self.entries[1])
             self.password.delete(0, END)
-            self.password.insert(END, self.entries[3])
+            self.password.insert(END, self.entries[2])
 
         except IndexError:  # if user clicks unreachable index (not item)
             pass
 
     # update selected passwords
     def update(self):
-        database.update_data(self.selected_item,
+        database.update_data(self.selected_item[0],
                              self.website.get(), self.password.get())
         self.clear()
         self.populate_list()  # show new data
 
     # delete data
     def delete(self):
-        database.delete_data(self.selected_item)
+        database.delete_data(self.selected_item[0])
         self.clear()
         self.populate_list()  # show new data
 
@@ -134,5 +134,4 @@ class Application:
 
 
 app = Application()
-app.update()
 Application.window.mainloop()
