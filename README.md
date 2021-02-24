@@ -6,7 +6,7 @@
 
 This is a **Password Manager GUI** made with Python (_Tkinter module and SQLite3_) that allows the user to:
 
-> - _**Add**_ a website and password for a specific website
+> - _**Add**_ a password for a specific website
 > - _**Delete**_ their passwords and associated website
 > - _**Update**_ their passwords and associated website
 > - _**Clear**_ the input data
