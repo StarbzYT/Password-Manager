@@ -64,13 +64,14 @@ class Application:
         self.data.grid(column=0, row=3, columnspan=4,
                        rowspan=3, pady=25, padx=20)
         # Create a scrollbar
-        self.scrollbar = Scrollbar(Application.window, orient=VERTICAL)
+        self.scrollbar = Scrollbar(Application.window,)
         self.scrollbar.grid(row=3, column=3)
         # Set scrollbar to our data
+        # set to scrollbar instead of mouse
         self.data.configure(yscrollcommand=self.scrollbar.set)
         self.scrollbar.configure(command=self.data.yview)
         # Bind select
-        self.data.bind('<<ListboxSelect>>', self.select_item)
+        self.data.bind("<<ListboxSelect>>", self.select_item)
 
     # button commands
     # add website and password to database
