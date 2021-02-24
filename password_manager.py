@@ -81,11 +81,15 @@ class Application:
             showerror(title="Error",
                       message="Please fill in all the information")
             return
-        # otherwise insert into database
-        database.insert_data(self.website.get(), self.password.get())
-        # insert then clear input boxes
-        self.clear()
-        self.populate_list()
+        elif self.website.get() == " " or self.password.get() == " ":  # hacky validation
+            showerror(title="Error",
+                      message="You did not enter a valid password")
+            # otherwise insert into database
+        else:
+            database.insert_data(self.website.get(), self.password.get())
+            # insert then clear input boxes
+            self.clear()
+            self.populate_list()
 
     def populate_list(self):
         # first delete to prevent same data showing in listbox

@@ -32,6 +32,7 @@ I changed a bit of the layout from the original design, but the functionality is
 > - Display data in the listbox in a more _accurate_ manner. (it's hard to tell what is what)
 > - Make design more symmetrical. (also, add more styling)
 > - Add RegEx to authenticate passwords
+> - Recognize and handle duplicate data
 
 ---
 
