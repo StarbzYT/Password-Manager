@@ -37,3 +37,38 @@ I changed a bit of the layout from the original design, but the functionality is
 ---
 
 ## **Here's a sneak peak!**
+
+![Hnet-image](https://user-images.githubusercontent.com/57025422/108933178-8e555780-75ff-11eb-8650-3102df9e1523.gif)
+
+---
+
+## **Install**
+
+```bash
+pip install tk
+```
+
+---
+
+## **Import**
+
+```python
+from tkinter import *
+from tkinter.messagebox import showerror
+from tkinter.messagebox import askquestion
+from db import Database
+```
+
+---
+
+## **Run**
+
+```bash
+python password_manager.py
+```
+
+---
+
+### **Inspiration**
+
+Brad Traversy's Part Manager. Watch the [video](https://www.youtube.com/watch?v=ELkaEpN29PU "Traversy Media") and check out his [repo](https://github.com/bradtraversy/part_manager "Part Manager").

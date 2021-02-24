@@ -46,4 +46,4 @@ class Database:
 
 
 db = Database("passwords")
-print(db.get_data())
+# print(db.get_data())
