@@ -83,7 +83,7 @@ class Application:
             return
         elif self.website.get() == " " or self.password.get() == " ":  # hacky validation
             showerror(title="Error",
-                      message="You did not enter a valid password")
+                      message="Try not to add spaces to your passwords")  # tip
             # otherwise insert into database
         else:
             database.insert_data(self.website.get(), self.password.get())
@@ -95,10 +95,10 @@ class Application:
         # first delete to prevent same data showing in listbox
         self.data.delete(0, END)
         for data in database.get_data():  # loop through ALL websites and passwords
-            # show_this = f"Website: {data[1]}, Password: {data[2]}"
             self.data.insert(END, data)  # insert into listbox
 
         # Runs when item is selected
+
     def select_item(self, event):
         # # Create global selected item to use in other functions
         try:
