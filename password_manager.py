@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter.messagebox import showerror
+from tkinter.messagebox import askquestion
 from db import Database
 
 database = Database("passwords")
@@ -47,7 +48,7 @@ class Application:
                                    text="Add Password", bg="green", bd="3", width=14, command=self.add)
         self.add_password.grid(column=0, row=1, pady=20, padx=22)
         self.delete_password = Button(Application.window,
-                                      text="Delete Password", bg="red", bd="3", width=14)
+                                      text="Delete Password", bg="red", bd="3", width=14, command=self.delete)
         self.delete_password.grid(column=1, row=1, pady=20, padx=12)
         self.update_password = Button(
             Application.window, text="Update", bd="3", width=14, command=self.update)
@@ -62,14 +63,13 @@ class Application:
                             width=69, border=2, font=("calibre", 10))
         self.data.grid(column=0, row=3, columnspan=4,
                        rowspan=3, pady=25, padx=20)
-        # scrollbar/slider
-        # Create scrollbar
-        self.scrollbar = Scrollbar(Application.window)
+        # Create a scrollbar
+        self.scrollbar = Scrollbar(Application.window, orient=VERTICAL)
         self.scrollbar.grid(row=3, column=3)
-        # Set scrollbar to parts
+        # Set scrollbar to our data
         self.data.configure(yscrollcommand=self.scrollbar.set)
         self.scrollbar.configure(command=self.data.yview)
-        # # Bind select
+        # Bind select
         self.data.bind('<<ListboxSelect>>', self.select_item)
 
     # button commands
@@ -122,9 +122,14 @@ class Application:
 
     # delete data
     def delete(self):
-        database.delete_data(self.selected_item[0])
-        self.clear()
-        self.populate_list()  # show new data
+        response = askquestion(title="Warning",
+                               message="Are you sure you want to delete this?")
+        if response == "yes":  # if they click yes, delete selected item
+            database.delete_data(self.selected_item[0])
+            self.clear()
+            self.populate_list()  # show new data
+        else:  # if no, pass
+            pass
 
         # clear input button functionality
 
